@@ -82,7 +82,7 @@ module.exports = function (app) {
         .then((docs) => {
           if (docs[0] == null) {
             console.log('no book with _id ' + bookid + ' exists');
-            res.send('no book exists')
+            res.send('no book exists');
           } else {
             console.log(`sent book ${docs[0].title} to API`);
             res.json(docs[0]);
@@ -96,8 +96,37 @@ module.exports = function (app) {
 
     .post(function (req, res) {
       let bookid = req.params.id;
-      let comment = req.body.comment;
       //json res format same as .get
+      if (req.body.hasOwnProperty('comment')) {
+        let comment = req.body.comment;
+        BookModel.findOneAndUpdate(
+          {
+            _id: mongoose.Types.ObjectId(bookid),
+          },
+          {
+            $push: {
+              comments: comment,
+            },
+          },
+          { new: true }
+        )
+          .then((docs) => {
+            if (docs==null) {
+              console.log(`no book exists with id: ${bookid}`)
+              res.send('no book exists');
+            } else {
+              console.log('New comment added on book: '+docs._id);
+              docs.commentcount = docs.comments.length;
+              res.json(docs);
+            } 
+          })
+          .catch((err) => {
+            console.log(err);
+            res.send(err);
+          });
+      } else {
+        res.send('missing required field comment');
+      }
     })
 
     .delete(function (req, res) {

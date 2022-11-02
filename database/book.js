@@ -8,7 +8,10 @@ let bookSchema = new mongoose.Schema({
     comments: {
         type: [ String ],
         default: []
-    }
+    },
+    // this property is needed for one to set commentcount for documents returned
+    // from find and update methods
+    commentcount: Number
 })
 
 module.exports = mongoose.model('Book',bookSchema);
