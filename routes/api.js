@@ -52,7 +52,7 @@ module.exports = function (app) {
             console.log(err);
           });
       } else {
-        res.send('missing required title field');
+        res.send('missing required field title');
       }
     })
 

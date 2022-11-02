@@ -100,7 +100,7 @@ suite('Functional Tests', function () {
             .then((res) => {
               assert.equal(res.status, 200);
               assert.isString(res.text, 'res.body should be a string');
-              assert.equal(res.text, 'missing required title field');
+              assert.equal(res.text, 'missing required field title');
             })
             .catch((err) => {
               console.log(err);
