@@ -58,6 +58,16 @@ module.exports = function (app) {
 
     .delete(function (req, res) {
       //if successful response will be 'complete delete successful'
+      // no test needed as it leads to all user books deleted when database restarts
+      BookModel.deleteMany({})
+        .then((docs) => {
+          console.log('All books deleted. Count: ' + docs.deletedCount);
+          res.send('complete delete successful');
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send(err);
+        });
     });
 
   app
@@ -111,14 +121,14 @@ module.exports = function (app) {
           { new: true }
         )
           .then((docs) => {
-            if (docs==null) {
-              console.log(`no book exists with id: ${bookid}`)
+            if (docs == null) {
+              console.log(`no book exists with id: ${bookid}`);
               res.send('no book exists');
             } else {
-              console.log('New comment added on book: '+docs._id);
+              console.log('New comment added on book: ' + docs._id);
               docs.commentcount = docs.comments.length;
               res.json(docs);
-            } 
+            }
           })
           .catch((err) => {
             console.log(err);
@@ -133,21 +143,20 @@ module.exports = function (app) {
       let bookid = req.params.id;
       //if successful response will be 'delete successful'
       BookModel.findOneAndRemove({
-        _id: bookid
+        _id: bookid,
       })
-      .then(docs=>{
-        if (docs==null) {
-          console.log('no book exists with id: '+ bookid)
-          res.send('no book exists');
-        } else {
-          console.log(`book ${bookid} deleted.`)
-          res.send('delete successful')
-        }     
-      })
-      .catch(err=>{
-      console.log(err)
-        res.send(err);
-      });
-      
+        .then((docs) => {
+          if (docs == null) {
+            console.log('no book exists with id: ' + bookid);
+            res.send('no book exists');
+          } else {
+            console.log(`book ${bookid} deleted.`);
+            res.send('delete successful');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send(err);
+        });
     });
 };
