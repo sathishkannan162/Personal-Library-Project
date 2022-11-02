@@ -7,6 +7,7 @@
  */
 
 'use strict';
+const { default: mongoose } = require('mongoose');
 let BookModel = require('../database/book');
 
 module.exports = function (app) {
@@ -21,18 +22,17 @@ module.exports = function (app) {
             commentcount: {
               $size: '$comments',
             },
-          }
-        }
+          },
+        },
       ])
-      .then(docs=>{
-        console.log('send all book docs to api: '+ docs.length);
-        res.json(docs);
+        .then((docs) => {
+          console.log('send all book docs to API: ' + docs.length);
+          res.json(docs);
         })
-        .catch(err=>{
-        console.log(err); 
-        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
-   
 
     .post(function (req, res) {
       //response will contain new book object including atleast _id and title
@@ -65,6 +65,33 @@ module.exports = function (app) {
     .get(function (req, res) {
       let bookid = req.params.id;
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
+      BookModel.aggregate([
+        {
+          $match: {
+            _id: new mongoose.Types.ObjectId(bookid),
+          },
+        },
+        {
+          $addFields: {
+            commentcount: {
+              $size: '$comments',
+            },
+          },
+        },
+      ])
+        .then((docs) => {
+          if (docs[0] == null) {
+            console.log('no book with _id ' + bookid + ' exists');
+            res.send('no book exists')
+          } else {
+            console.log(`sent book ${docs[0].title} to API`);
+            res.json(docs[0]);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send(err);
+        });
     })
 
     .post(function (req, res) {
