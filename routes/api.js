@@ -132,5 +132,22 @@ module.exports = function (app) {
     .delete(function (req, res) {
       let bookid = req.params.id;
       //if successful response will be 'delete successful'
+      BookModel.findOneAndRemove({
+        _id: bookid
+      })
+      .then(docs=>{
+        if (docs==null) {
+          console.log('no book exists with id: '+ bookid)
+          res.send('no book exists');
+        } else {
+          console.log(`book ${bookid} deleted.`)
+          res.send('delete successful')
+        }     
+      })
+      .catch(err=>{
+      console.log(err)
+        res.send(err);
+      });
+      
     });
 };
