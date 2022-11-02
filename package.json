@@ -19,12 +19,27 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/freeCodeCamp/boilerplate-project-library"
+		"url": "git+https://github.com/freeCodeCamp/boilerplate-project-library.git"
 	},
 	"keywords": [
 		"node",
 		"hyperdev",
 		"express"
 	],
-	"license": "MIT"
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/freeCodeCamp/boilerplate-project-library/issues"
+	},
+	"homepage": "https://github.com/freeCodeCamp/boilerplate-project-library#readme",
+	"directories": {
+		"test": "tests"
+	},
+	"author": "'sathish, fcc'",
+	"devDependencies": {
+		"nodemon": "^2.0.20"
+	},
+	"prettier": {
+		"tabWidth": 2,
+		"singleQuote": true
+	}
 }
