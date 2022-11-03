@@ -7,7 +7,7 @@
 		"start": "node server.js",
 		"test": "mocha ./tests/ --ui tdd",
 		"dev": "nodemon server.js",
-		"zombie": "mocha 3_zombie_tests.js --ui tdd"// use this to run all tests including zombie tests
+		"zombie": "mocha 3_zombie_tests.js --ui tdd"
 	},
 	"dependencies": {
 		"body-parser": "^1.15.2",
