@@ -1,10 +1,10 @@
 const chai = require('chai');
 const assert = chai.assert;
-const server = require('../server');
-const BookModel = require('../database/book');
+const server = require('./server');
+const BookModel = require('./database/book');
 const Browser = require('zombie');
 const { stdout } = require('process');
-let sampleBooks = require('../database/sampleBooks')
+let sampleBooks = require('./database/sampleBooks')
 require('dotenv').config();
 
 Browser.localhost('example.com', process.env.PORT);
