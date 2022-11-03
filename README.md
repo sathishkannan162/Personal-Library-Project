@@ -1,6 +1,12 @@
 # Personal Library
 
-This project was done as a part of Quality Assurance course on Freecodecamp and is a exact replica of [https://personal-library.freecodecamp.rocks/](https://personal-library.freecodecamp.rocks/)
+This project was done as a part of Quality Assurance course on Freecodecamp and is a exact replica of [https://personal-library.freecodecamp.rocks/](https://personal-library.freecodecamp.rocks/).
+
+This project was built using `express`. Tests for this project were writtien using `chai`, `chai-http` and `mocha`. UI tests were written using headless browser `zombie.js` along with former packages. Database used here is `MongoDB` and `mongoose` was used for validation of records that are sent to database.
+
+You can send GET,POST and DELETE requests to server on `\api\books` and `\api\books\[_id]`. Using them, you can add books, add comments to books, get data on a specific book or all books, delete a single book or all books. Refer user stories below for instructions on how to use them. 
+
+Check out the package.json for different scripts that can be run. To start the server with tests. You need to uncomment the `NODE_ENV=test` in your .env file.
 
 ## User stories completed
 
